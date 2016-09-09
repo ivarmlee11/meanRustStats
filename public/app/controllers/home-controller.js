@@ -51,15 +51,14 @@ angular.module('Home', [])
       });
     };
     var data = playerArray;
-    console.log('post getting called twice');
     $http.post('/postStats', data);
   }, function error(res) {
     console.log(res);
   });
 
-  // $scope.search = function() {
-  //   // var data = $scope.playerArray;
-  //   $http.post('/postStats', data);
-  // };
+  $scope.search = function() {
+    var data = $scope.playerArray;
+    $http.post('/postStats', data);
+  };
 
 }]);
