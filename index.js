@@ -3,6 +3,7 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var request = require('request');
+var CronJob = require('cron').CronJob;
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -36,14 +37,29 @@ app.post('/postStats', function(req, res) {
   console.log('the post route hit');
 });
 
-setInterval(function () {
-  request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
-   if (!error && response.statusCode == 200) {
-    console.log(body);
-    // find and update
-  }
-}); 
-}, 1000 * 60 * 60); 
+
+var getRustStats = new CronJob({
+  cronTime: '00 18 15 * * 1-5',
+  onTick: function() {
+    /*
+     * Runs every weekday (Monday through Friday)
+     * at 11:30:00 AM. It does not run on Saturday
+     * or Sunday.
+     */
+    console.log('cron job is working');
+    request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+        // find and update
+      };
+    });
+  },
+  start: false,
+  timeZone: 'America/Los_Angeles'
+});
+getRustStats.start();
+
+
 
 
 app.listen(PORT, function() {

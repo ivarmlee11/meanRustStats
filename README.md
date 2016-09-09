@@ -1,4 +1,4 @@
 
-###### controllers were getting executed twice. if you use the ui-router module for Angular the controller is already being passed in to the view. i was accidentally using ng-controller=(the controller name) within the view- thus executing the controller twice. 
+###### Controllers were getting executed twice. If you use the ui-router module for Angular the controller is already being passed into the view. I was accidentally using ng-controller="foo" within the view, thus executing the controller again ater the view had been loaded.. 
 
 ###### http://stackoverflow.com/questions/15535336/combating-angularjs-executing-controller-twice
