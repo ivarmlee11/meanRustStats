@@ -14,10 +14,10 @@ mongoose.connect('mongodb://localhost/myDb');
 
 var PlayerModel = require('./models/PlayerModel');
 
-function getPlayerStats() {
+function updatePlayerStats() {
   request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+      console.log('update player stats ran successfully');
       // find and update
     };
   });
@@ -47,14 +47,9 @@ app.post('/postStats', function(req, res) {
 });
 
 var getRustStats = new CronJob({
-  cronTime: '00 18 15 * * 1-5',
+  cronTime: '00 54 15 * * 1-5',
   onTick: function() {
-    /*
-     * Runs every weekday (Monday through Friday)
-     * at 11:30:00 AM. It does not run on Saturday
-     * or Sunday.
-     */
-     getPlayerStats();
+     updatePlayerStats();
   },
   start: false,
   timeZone: 'America/Los_Angeles'

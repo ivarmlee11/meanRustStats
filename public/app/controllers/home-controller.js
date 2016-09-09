@@ -1,9 +1,7 @@
 angular.module('Home', [])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 
-  $scope.loading = false;
-
-  
+  // $scope.loading = false;
 
   function killDeathRatio(kills, deaths) {
     if(deaths === 0) {
@@ -18,8 +16,11 @@ angular.module('Home', [])
     method: 'GET',
   };
 
+  var playerArray = [];
+
+  $scope.playerStats = {};
+
   $http(playerStats).then(function(res) {
-    var playerArray = [];
     for (var i = 0; i < res.data.players.length; i++) {
       var deathCount = (parseInt(res.data.players[i].bear) + 
                     parseInt(res.data.players[i].bearTrap) + 
@@ -41,7 +42,9 @@ angular.module('Home', [])
                     parseInt(res.data.players[i].suicides) + 
                     parseInt(res.data.players[i].thirst) + 
                     parseInt(res.data.players[i].wolf));
+      
       var kd = killDeathRatio(res.data.players[i].kills, deathCount);
+
       playerArray.push({
         name: res.data.players[i].playerName,
         kills: res.data.players[i].kills,
@@ -49,16 +52,23 @@ angular.module('Home', [])
         kd: kd,
         sleepKills: res.data.players[i].sleepers
       });
+
     };
+    
     var data = playerArray;
     $http.post('/postStats', data);
+
   }, function error(res) {
     console.log(res);
   });
 
-  $scope.search = function() {
-    var data = $scope.playerArray;
-    $http.post('/postStats', data);
+  $scope.search = function() { 
+    playerArray.forEach(function(item) {
+      console.log(item);
+      if($scope.searchTerm === item.name) {
+        $scope.playerStats = item;
+      };
+    });
   };
 
 }]);
