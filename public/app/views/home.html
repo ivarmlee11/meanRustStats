@@ -1,1 +1,22 @@
-<h1>Home Page <small>{{name}}</small></h1>
+<h1>Search for a Player</h1>
+<div>
+
+ <form class="form" ng-submit="search()">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="searchTerm">
+        <input type="submit" class="btn btn-primary">
+      </div>
+    </form>
+
+    <div class="well">
+      <div ng-if="loading">
+        <img class="center" src="./img/load.gif">
+      </div>
+
+      <ul class="list-group">
+        <li class="list-group-item"></li>
+        <li ng-repeat="(key, value) in playerStats" class="list-group-item">{{key}} - {{value}}</li>
+      </ul>
+    </div>
+
+</div>
