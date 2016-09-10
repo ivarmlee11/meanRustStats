@@ -15,12 +15,12 @@ mongoose.connect('mongodb://localhost/myDb');
 var PlayerModel = require('./models/PlayerModel');
 
 function updatePlayerStats() {
-  request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log('update player stats ran successfully');
-      // find and update
-    };
-  });
+  // request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
+  //   if (!error && response.statusCode == 200) {
+  //     console.log(body);
+  //     console.log('update player stats ran successfully');
+  //   };
+  // });
 };
 
 app.get('/*', function(req, res) {
@@ -28,28 +28,27 @@ app.get('/*', function(req, res) {
 });
 
 app.post('/postStats', function(req, res) {
-  req.body.forEach(function(player) {
-    PlayerModel.create({
-      name: player.name,
-      kills: player.kills,
-      deaths: player.deaths,
-      kd: player.kd,
-      sleepKills: player.sleepKills
-    },
-    function(err, player) {
-      if (err) {
-        return console.log(err.message);
-      };
-      console.log(player);
+  req.body.forEach(function(item) {
+    var query = { name: item.name};
+    var update = { kills: item.kills,
+                    deaths: item.deaths,
+                    kd: item.kd,
+                    sleepKills: item.sleepKills
+                  };
+    var options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    // Find the document
+    PlayerModel.findOneAndUpdate(query, update, options, function(error, result) {
+        if (error) return;
+        console.log('Player model updated!')
     });
   });
-  console.log('the post route hit');
 });
 
 var getRustStats = new CronJob({
-  cronTime: '00 54 15 * * 1-5',
+  cronTime: '00 08 22 * * 1-5',
   onTick: function() {
-     updatePlayerStats();
+    updatePlayerStats();
   },
   start: false,
   timeZone: 'America/Los_Angeles'
@@ -59,3 +58,20 @@ getRustStats.start();
 app.listen(PORT, function() {
   console.log('app listening on port:', PORT);
 });
+
+  // req.body.forEach(function(player) {
+  //   PlayerModel.create({
+  //     name: player.name,
+  //     kills: player.kills,
+  //     deaths: player.deaths,
+  //     kd: player.kd,
+  //     sleepKills: player.sleepKills
+  //   },
+  //   function(err, player) {
+  //     if (err) {
+  //       return console.log(err.message);
+  //     };
+  //     console.log(player);
+  //   });
+  // });
+  // console.log('the post route hit');

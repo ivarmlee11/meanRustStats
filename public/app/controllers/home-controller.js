@@ -44,7 +44,7 @@ angular.module('Home', [])
                     parseInt(res.data.players[i].wolf));
       
       var kd = killDeathRatio(res.data.players[i].kills, deathCount);
-
+      
       playerArray.push({
         name: res.data.players[i].playerName,
         kills: res.data.players[i].kills,
@@ -52,23 +52,23 @@ angular.module('Home', [])
         kd: kd,
         sleepKills: res.data.players[i].sleepers
       });
-
     };
-    
     var data = playerArray;
-    $http.post('/postStats', data);
-
+    $http.post('/postStats', data); 
   }, function error(res) {
     console.log(res);
   });
 
-  $scope.search = function() { 
-    playerArray.forEach(function(item) {
-      console.log(item);
-      if($scope.searchTerm === item.name) {
-        $scope.playerStats = item;
-      };
-    });
+  $scope.search = function() {
+    //find in mongodb instead
+
+
+    // playerArray.forEach(function(item) {
+    //   console.log(item);
+    //   if($scope.searchTerm === item.name) {
+    //     $scope.playerStats = item;
+    //   };
+    // });
   };
 
 }]);
