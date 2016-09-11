@@ -6,10 +6,9 @@ var playerSchema = new mongoose.Schema({
   deaths: Number,
   kd: String,
   sleepKills: Number
+},
+{
+     timestamps: true
 });
-
-playerSchema.methods.kdRatio = function() {
-  return this.name + " has a " +  this.kills/this.deaths + " Kill Death ratio.";
-};
 
 module.exports = mongoose.model('PlayerModel', playerSchema);

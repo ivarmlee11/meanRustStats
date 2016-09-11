@@ -14,21 +14,8 @@ mongoose.connect('mongodb://localhost/myDb');
 
 var PlayerModel = require('./models/PlayerModel');
 
-function updatePlayerStats() {
-  // request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-  //     console.log(body);
-  //     console.log('update player stats ran successfully');
-  //   };
-  // });
-};
-
-app.get('/*', function(req, res) {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.post('/postStats', function(req, res) {
-  req.body.forEach(function(item) {
+function updatePlayerStats(object) {
+  object.body.forEach(function(item) {
     var query = { name: item.name};
     var update = { kills: item.kills,
                     deaths: item.deaths,
@@ -40,15 +27,32 @@ app.post('/postStats', function(req, res) {
     // Find the document
     PlayerModel.findOneAndUpdate(query, update, options, function(error, result) {
         if (error) return;
-        console.log('Player model updated!')
     });
+  });
+};
+
+// app.get('/*', function(req, res) {
+//   res.sendFile(__dirname + '/public/index.html');
+// });
+
+app.get('/getPlayerStats', function(req,res) {
+  PlayerModel.find({name: req.query.name}, function(err, player) {
+    if (err) throw err;
+    console.log(player + ' found server side');
+    res.send(player);
   });
 });
 
+app.post('/postStatsOnPageOpen', function(req, res) {
+  updatePlayerStats(req);
+});
+
 var getRustStats = new CronJob({
-  cronTime: '00 08 22 * * 1-5',
+  cronTime: '00 08 18 * * 1-5',
   onTick: function() {
-    updatePlayerStats();
+    // put the request to the external site back in
+    // pass in the object i get from it to the function below
+    // updatePlayerStats();
   },
   start: false,
   timeZone: 'America/Los_Angeles'
@@ -58,20 +62,3 @@ getRustStats.start();
 app.listen(PORT, function() {
   console.log('app listening on port:', PORT);
 });
-
-  // req.body.forEach(function(player) {
-  //   PlayerModel.create({
-  //     name: player.name,
-  //     kills: player.kills,
-  //     deaths: player.deaths,
-  //     kd: player.kd,
-  //     sleepKills: player.sleepKills
-  //   },
-  //   function(err, player) {
-  //     if (err) {
-  //       return console.log(err.message);
-  //     };
-  //     console.log(player);
-  //   });
-  // });
-  // console.log('the post route hit');
