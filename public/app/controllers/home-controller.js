@@ -21,7 +21,7 @@ angular.module('Home', [])
   $scope.playerStats = {};
   $scope.searchTerm = '';
 
-  $http(serverStatsReqObj).then(function(res) {
+  $http(serverStatsReqObj).then(function success(res) {console.log(typeof res);
     for (var i = 0; i < res.data.players.length; i++) {
       var deathCount = (parseInt(res.data.players[i].bear) + 
                         parseInt(res.data.players[i].bearTrap) + 
@@ -54,6 +54,7 @@ angular.module('Home', [])
         sleepKills: res.data.players[i].sleepers
       });
     };
+    console.log(playerArray);
     $http.post('/postStatsOnPageOpen', playerArray); 
   }, function error(res) {
     console.log(res);
@@ -66,7 +67,7 @@ angular.module('Home', [])
       params: {name: $scope.searchTerm}
     };
     $http(playerStatsReqObj).then(function success(res) {
-      console.log(res.data[0]);
+      console.log(res);
       $scope.playerStats = res.data[0];
     }, function error(res) {
       console.log(res);
