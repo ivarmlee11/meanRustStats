@@ -63,7 +63,6 @@ var getRustStats = new CronJob({
                         };
           var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-          // Find the document
           PlayerModel.findOneAndUpdate(query, update, options, function(error, result) {
             console.log('PlayerModel updated');
             if (error) return;

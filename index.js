@@ -11,6 +11,8 @@ var getRustStats = require('./helpers/cronJob.js');
 //opens the page
 var updatePlayerStats = require('./helpers/update.js').updatePlayerStats;
 
+var PlayerModel = require('./models/PlayerModel');
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

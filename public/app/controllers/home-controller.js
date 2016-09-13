@@ -1,8 +1,6 @@
 angular.module('Home', [])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 
-  // $scope.loading = false;
-
   function killDeathRatio(kills, deaths) {
     if(deaths === 0) {
       return kills;
@@ -21,7 +19,7 @@ angular.module('Home', [])
   $scope.playerStats = {};
   $scope.searchTerm = '';
 
-  $http(serverStatsReqObj).then(function success(res) {console.log(typeof res);
+  $http(serverStatsReqObj).then(function success(res) {
     for (var i = 0; i < res.data.players.length; i++) {
       var deathCount = (parseInt(res.data.players[i].bear) + 
                         parseInt(res.data.players[i].bearTrap) + 

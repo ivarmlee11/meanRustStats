@@ -22,3 +22,9 @@
 
 
 ###### https://gist.github.com/sym3tri/858142
+
+
+
+###### D3 and AngularJs
+
+###### http://busypeoples.github.io/post/reusable-chart-components-with-angular-d3-js/
