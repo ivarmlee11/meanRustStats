@@ -35,7 +35,7 @@ app.get('/getPlayerStats', function(req,res) {
 });
 
 app.get('/updateD3', function(req, res) {
-  PlayerModel.find({}).sort({kd: -1}).exec(function(err, players) {
+  PlayerModel.find({}).sort({totalKills: -1}).exec(function(err, players) {
     var playerStats = [];
 
     players.forEach(function(player) {

@@ -5,7 +5,8 @@ var playerSchema = new mongoose.Schema({
   kills: Number,
   deaths: Number,
   kd: String,
-  sleepKills: Number
+  sleepKills: Number,
+  totalKills: Number
 },
 {
   timestamps: true

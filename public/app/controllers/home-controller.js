@@ -3,8 +3,10 @@ angular.module('Home', ['nvd3', 'ngResource'])
 .controller('HomeCtrl', ['$scope', '$http', 'FilmsFactory',
  function($scope, $http, FilmsFactory) {
 
+  // this console.log is the result of me practicing abstracting out concerns
+  // related to factory injection
   console.log(FilmsFactory);
-  
+
   function killDeathRatio(kills, deaths) {
     if(deaths === 0) {
       return kills;
@@ -48,13 +50,14 @@ angular.module('Home', ['nvd3', 'ngResource'])
                         parseInt(res.data.players[i].wolf));
           
       var kd = killDeathRatio(res.data.players[i].kills, deathCount);
-      
+      var totalKills = parseInt(res.data.players[i].sleepers) + parseInt(res.data.players[i].kills);
       playerArray.push({
         name: res.data.players[i].playerName,
         kills: res.data.players[i].kills,
         deaths: deathCount,
         kd: kd,
-        sleepKills: res.data.players[i].sleepers
+        sleepKills: res.data.players[i].sleepers,
+        totalKills: totalKills
       });
     };
     // console.log(playerArray);
@@ -113,12 +116,18 @@ angular.module('Home', ['nvd3', 'ngResource'])
 
   $http(d3PlayerStatsReqObj).then(function success(res) {
     d3UpdateArray = res.data;
+    console.log(d3UpdateArray);
+
+    $scope.totalKills = 0;
 
     $scope.data = [];
 
-    for (var i = 0; i < 31; i++) {
+    for (var i = 0; i < 11; i++) {
       $scope.data.push({key: d3UpdateArray[i].name,
-                        y: d3UpdateArray[i].kills + d3UpdateArray[i].sleepKills})
+                        y: d3UpdateArray[i].kills + d3UpdateArray[i].sleepKills});
+    };
+    for (var j = 0; j < d3UpdateArray.length; j++) {
+      $scope.totalKills += (d3UpdateArray[i].totalKills);
     };
 
   }, function error(res) {

@@ -44,13 +44,14 @@ var getRustStats = new CronJob({
           };
 
           var kd = killDeathRatio(parsedBody.players[i].kills, deathCount);
-      
+          var totalKills = parseInt(res.data.players[i].sleepers) + parseInt(res.data.players[i].kills);
           playerArray.push({
             name: parsedBody.players[i].playerName,
             kills: parsedBody.players[i].kills,
             deaths: deathCount,
             kd: kd,
-            sleepKills: parsedBody.players[i].sleepers
+            sleepKills: parsedBody.players[i].sleepers,
+            totalKills: totalKills
           });
         }; 
 

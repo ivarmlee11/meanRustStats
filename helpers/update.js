@@ -6,7 +6,8 @@ exports.updatePlayerStats = function(array) {
     var update = { kills: item.kills,
                     deaths: item.deaths,
                     kd: item.kd,
-                    sleepKills: item.sleepKills
+                    sleepKills: item.sleepKills,
+                    totalKills: item.totalKills
                   };
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
