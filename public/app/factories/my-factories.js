@@ -1,1 +1,1 @@
-angular.module('MyFactories', []);
+angular.module('MyFactories', ['FilmsFactory']);

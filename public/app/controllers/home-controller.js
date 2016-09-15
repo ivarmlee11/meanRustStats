@@ -1,6 +1,10 @@
-angular.module('Home', ['nvd3'])
-.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+angular.module('Home', ['nvd3', 'ngResource'])
 
+.controller('HomeCtrl', ['$scope', '$http', 'FilmsFactory',
+ function($scope, $http, FilmsFactory) {
+
+  console.log(FilmsFactory);
+  
   function killDeathRatio(kills, deaths) {
     if(deaths === 0) {
       return kills;
@@ -67,7 +71,15 @@ angular.module('Home', ['nvd3'])
     };
     $http(playerStatsReqObj).then(function success(res) {
       console.log(res);
-      $scope.playerStats = res.data[0];
+      if(res.data.length === 0) {
+        $scope.searchTermNotFound = true;
+        $scope.searchTermFound = false;
+        $scope.playerStatsMessage = 'Player not found.'
+      } else {
+        $scope.searchTermNotFound = false;
+        $scope.searchTermFound = true;
+        $scope.playerStats = res.data[0];
+      };
     }, function error(res) {
       console.log(res);
     });
@@ -105,7 +117,7 @@ angular.module('Home', ['nvd3'])
     $scope.data = [];
 
     for (var i = 0; i < 31; i++) {
-      $scope.data.push({key: d3UpdateArray[i].name + ,
+      $scope.data.push({key: d3UpdateArray[i].name,
                         y: d3UpdateArray[i].kills + d3UpdateArray[i].sleepKills})
     };
 
@@ -113,4 +125,4 @@ angular.module('Home', ['nvd3'])
     console.log(res);
   });
 
-}]);
+}])

@@ -28,3 +28,13 @@
 ###### D3 and AngularJs
 
 ###### http://busypeoples.github.io/post/reusable-chart-components-with-angular-d3-js/
+
+###### More on AngularJS factoires vs services
+
+###### http://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
+
+###### https://toddmotto.com/factory-versus-service
+
+###### Understanding Dependency Injection
+
+###### https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
