@@ -46,9 +46,9 @@ app.get('/updateD3', function(req, res) {
   });
 });
 
-// app.post('/postStatsOnPageOpen', function(req, res) {
-//   updatePlayerStats(req);
-// });
+app.post('/postStatsOnPageOpen', function(req, res) {
+  updatePlayerStats(req);
+});
 
 app.listen(PORT, function() {
   console.log('app listening on port:', PORT);

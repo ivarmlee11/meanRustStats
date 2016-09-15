@@ -1,27 +1,27 @@
-<h1>Rust Stats</h1>
+<h1>PLAYER STATS</h1>
 
-<div>
-
-  <form class="form" ng-submit="search()">
-    <div class="form-group">
-    <input type="text" class="form-control" ng-model="searchTerm">
-    <input type="submit" class="btn btn-primary">
+<div class="well">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8" ng>   
+        {{playerStats.name}} Kills:{{playerStats.kills}}
+                             Sleep kills:{{playerStats.sleepKills}}
+                             Deaths:{{playerStats.deaths}}
+      </div>
+      <div class="col-sm-4">
+        <form class="form" ng-submit="search()">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="searchTerm">
+            <input type="submit" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
-
-  <div class="well">
-
-    <div ng-if="loading">
-      <img class="center" src="./img/load.gif">
-    </div>
-
-    <ul class="list-group">
-      <li class="list-group-item">{{playerStats.name}}</li>
-      <li ng-repeat="(key, value) in playerStats" class="list-group-item">{{key}} - {{value}}</li>
-    </ul>
-
   </div>
-
 </div>
 
- <nvd3 options='options' data='data'></nvd3>
+<h1>TOTAL KILLS</h1>
+
+<div class="well">
+  <nvd3 options='options' data='data'></nvd3>
+</div>

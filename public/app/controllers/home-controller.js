@@ -73,105 +73,44 @@ angular.module('Home', ['nvd3'])
     });
   };
 
-
-
   $scope.options = {
     chart: {
-        type: 'pieChart',
-        height: 450,
-        donut: true,
-        x: function(d){return d.key;},
-        y: function(d){return d.y;},
-        showLabels: true,
-
-        pie: {
-            startAngle: function(d) { return d.startAngle/2 -Math.PI/2 },
-            endAngle: function(d) { return d.endAngle/2 -Math.PI/2 }
-        },
-        duration: 500,
-        legend: {
-            margin: {
-                top: 5,
-                right: 140,
-                bottom: 5,
-                left: 0
-            }
+      type: 'pieChart',
+      height: 600,
+      x: function(d){return d.key;},
+      y: function(d){return d.y;},
+      showLabels: true,
+      duration: 500,
+      labelThreshold: 0.01,
+      labelSunbeamLayout: true,
+      legend: {
+        margin: {
+            top: 5,
+            right: 35,
+            bottom: 5,
+            left: 0
         }
+      }
     }
   };
-
-  $scope.data = [
-      {
-          key: "One",
-          y: 5
-      },
-      {
-          key: "Two",
-          y: 2
-      },
-      {
-          key: "Three",
-          y: 9
-      },
-      {
-          key: "Four",
-          y: 7
-      },
-      {
-          key: "Five",
-          y: 4
-      },
-      {
-          key: "Six",
-          y: 3
-      },
-      {
-          key: "Seven",
-          y: .5
-      }
-  ];
-
+  
   var d3PlayerStatsReqObj = {
     url: '/updateD3',
-      method: 'GET'
-    };
-    $http(d3PlayerStatsReqObj).then(function success(res) {
-      d3UpdateArray = res.data;
-      console.log(' sorted?');
-      console.log(d3UpdateArray);
+    method: 'GET'
+  };
 
-      $scope.data = [
-      {
-          key: d3UpdateArray[0].name,
-          y: 5
-      },  
-      {
-          key: "Two",
-          y: 2
-      },
-      {
-          key: "Three",
-          y: 9
-      },
-      {
-          key: "Four",
-          y: 7
-      },
-      {
-          key: "Five",
-          y: 4
-      },
-      {
-          key: "Six",
-          y: 3
-      },
-      {
-          key: "Seven",
-          y: .5
-      }
-    ];
-    }, function error(res) {
-      console.log(res);
+  $http(d3PlayerStatsReqObj).then(function success(res) {
+    d3UpdateArray = res.data;
+
+    $scope.data = [];
+
+    for (var i = 0; i < 31; i++) {
+      $scope.data.push({key: d3UpdateArray[i].name + ,
+                        y: d3UpdateArray[i].kills + d3UpdateArray[i].sleepKills})
+    };
+
+  }, function error(res) {
+    console.log(res);
   });
 
 }]);

@@ -1,6 +1,9 @@
 # Env variables
 .env
 
+# Bower
+bower_components
+
 # Logs
 logs
 *.log
