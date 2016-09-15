@@ -34,9 +34,21 @@ app.get('/getPlayerStats', function(req,res) {
   });
 });
 
-app.post('/postStatsOnPageOpen', function(req, res) {
-  updatePlayerStats(req);
+app.get('/updateD3', function(req, res) {
+  PlayerModel.find({}).sort({kd: -1}).exec(function(err, players) {
+    var playerStats = [];
+
+    players.forEach(function(player) {
+      playerStats.push(player);
+    });
+
+    res.send(playerStats);  
+  });
 });
+
+// app.post('/postStatsOnPageOpen', function(req, res) {
+//   updatePlayerStats(req);
+// });
 
 app.listen(PORT, function() {
   console.log('app listening on port:', PORT);

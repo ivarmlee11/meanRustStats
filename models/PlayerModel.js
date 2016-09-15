@@ -8,7 +8,7 @@ var playerSchema = new mongoose.Schema({
   sleepKills: Number
 },
 {
-     timestamps: true
+  timestamps: true
 });
 
 module.exports = mongoose.model('PlayerModel', playerSchema);

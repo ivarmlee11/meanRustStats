@@ -1,4 +1,4 @@
-angular.module('Home', [])
+angular.module('Home', ['nvd3'])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 
   function killDeathRatio(kills, deaths) {
@@ -9,15 +9,16 @@ angular.module('Home', [])
     }
   };
 
+  $scope.playerStats = {};
+  $scope.searchTerm = '';
+
+  var playerArray = [];
+  var d3UpdateArray = [];
+
   var serverStatsReqObj = {
     url: 'http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats',
     method: 'GET'
   };
-
-  var playerArray = [];
-
-  $scope.playerStats = {};
-  $scope.searchTerm = '';
 
   $http(serverStatsReqObj).then(function success(res) {
     for (var i = 0; i < res.data.players.length; i++) {
@@ -52,7 +53,7 @@ angular.module('Home', [])
         sleepKills: res.data.players[i].sleepers
       });
     };
-    console.log(playerArray);
+    // console.log(playerArray);
     $http.post('/postStatsOnPageOpen', playerArray); 
   }, function error(res) {
     console.log(res);
@@ -71,5 +72,106 @@ angular.module('Home', [])
       console.log(res);
     });
   };
+
+
+
+  $scope.options = {
+    chart: {
+        type: 'pieChart',
+        height: 450,
+        donut: true,
+        x: function(d){return d.key;},
+        y: function(d){return d.y;},
+        showLabels: true,
+
+        pie: {
+            startAngle: function(d) { return d.startAngle/2 -Math.PI/2 },
+            endAngle: function(d) { return d.endAngle/2 -Math.PI/2 }
+        },
+        duration: 500,
+        legend: {
+            margin: {
+                top: 5,
+                right: 140,
+                bottom: 5,
+                left: 0
+            }
+        }
+    }
+  };
+
+  $scope.data = [
+      {
+          key: "One",
+          y: 5
+      },
+      {
+          key: "Two",
+          y: 2
+      },
+      {
+          key: "Three",
+          y: 9
+      },
+      {
+          key: "Four",
+          y: 7
+      },
+      {
+          key: "Five",
+          y: 4
+      },
+      {
+          key: "Six",
+          y: 3
+      },
+      {
+          key: "Seven",
+          y: .5
+      }
+  ];
+
+  var d3PlayerStatsReqObj = {
+    url: '/updateD3',
+      method: 'GET'
+    };
+    $http(d3PlayerStatsReqObj).then(function success(res) {
+      d3UpdateArray = res.data;
+      console.log(' sorted?');
+      console.log(d3UpdateArray);
+
+      $scope.data = [
+      {
+          key: d3UpdateArray[0].name,
+          y: 5
+      },  
+      {
+          key: "Two",
+          y: 2
+      },
+      {
+          key: "Three",
+          y: 9
+      },
+      {
+          key: "Four",
+          y: 7
+      },
+      {
+          key: "Five",
+          y: 4
+      },
+      {
+          key: "Six",
+          y: 3
+      },
+      {
+          key: "Seven",
+          y: .5
+      }
+    ];
+    }, function error(res) {
+      console.log(res);
+  });
 
 }]);
