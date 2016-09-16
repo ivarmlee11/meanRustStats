@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/myDb');
+// mongoose.connect('mongodb://localhost/myDb');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/myDb');
 
 // When this redirect is enabled the response object I get from the 
 // GET request for player stats is HTML
