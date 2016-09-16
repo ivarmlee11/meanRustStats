@@ -3,29 +3,30 @@
 <div class="well">
   <div class="container">
     <div class="row">
-      <div class="col-sm-8"> 
-        <span ng-show="searchTermNotFound">{{playerStatsMessage}}
-        </span>
-        <span ng-show="searchTermFound"> 
-          {{playerStats.name}}
-          Kills:{{playerStats.kills}}
-          Sleep kills:{{playerStats.sleepKills}}
-          Deaths:{{playerStats.deaths}}
-        </span>
-      </div>
       <div class="col-sm-4">
-        <form class="form" ng-submit="search()">
+        <form class="form">
           <div class="form-group">
-            <input type="text" class="form-control" ng-model="searchTerm">
-            <input type="submit" class="btn btn-primary">
+            <input type="text" class="form-control" ng-model-options="{ debounce: 500 }" ng-model="searchTerm" placeholder="Search for a player">
           </div>
         </form>
+      </div>
+      <div class="col-sm-8">
+        <h3>
+          <span ng-hide="searchTermFound"> 
+            {{playerStats.name}} 
+            Kills: {{playerStats.kills}}
+            Sleep Kills: {{playerStats.sleepKills}}
+            Deaths: {{playerStats.deaths}} 
+          </span>
+        </h3>
       </div>
     </div>
   </div>
 </div>
 <h2>TOTAL KILLS: {{totalKills}}</h2>
-<h3>KILL CHART: Kills + Sleeper Kills</h3>
+<h3>Total Deaths: {{totalDeaths}}</h3>
+<h3>Tracked Players: {{trackedPlayers}}</h3>
 <div class="well">
+<h2>KILL CHART</h3>
   <nvd3 options='options' data='data'></nvd3>
 </div>

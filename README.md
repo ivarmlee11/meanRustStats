@@ -1,9 +1,17 @@
+This app is tracking stats for this server
+
+http://rustorbust.org/stats/
+
+JSON object I am getting data from
+
+http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats
+
 
 ###### Controllers were getting executed twice. If you use the ui-router module for Angular the controller is already being passed into the view. I was accidentally using ng-controller="foo" within the view, thus executing the controller again ater the view had been loaded.. 
 
 ###### http://stackoverflow.com/questions/15535336/combating-angularjs-executing-controller-twice
 
-###### Tech used: npm-cron, AngularJS 1.x, Mongoose, MongoDB, 
+###### Tech used: npm-cron, AngularJS 1.x, Mongoose, MongoDB...
 
 
 // FROM: http://www.mongodb.org/display/DOCS/Updating#Updating-update%28%29
@@ -38,3 +46,7 @@
 ###### Understanding Dependency Injection
 
 ###### https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
+
+###### MongoDB query the DB for a value LIKE the search term entered
+
+###### http://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value

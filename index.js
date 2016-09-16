@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost/myDb');
 // });
 
 app.get('/getPlayerStats', function(req,res) {
-  PlayerModel.find({name: req.query.name}, function(err, player) {
+  PlayerModel.find({name: new RegExp('^' + req.query.name + '$', "i")}, function(err, player) {
     if (err) throw err;
     console.log(player + ' found server side');
     res.send(player);
@@ -35,7 +35,7 @@ app.get('/getPlayerStats', function(req,res) {
 });
 
 app.get('/updateD3', function(req, res) {
-  PlayerModel.find({}).sort({totalKills: -1}).exec(function(err, players) {
+  PlayerModel.find({}).sort({kills: -1}).exec(function(err, players) {
     var playerStats = [];
 
     players.forEach(function(player) {
