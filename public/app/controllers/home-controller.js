@@ -24,40 +24,16 @@ angular.module('Home', ['nvd3', 'ngResource'])
   var playerArray = [];
   var d3UpdateArray = [];
 
-// barricadeMetal: "0",
-// barricadeWood: "0",
-// barricadeWoodwire: "0",
-// bear: "0",
-// bearTrap: "0",
-// bleedings: "0",
-// campfire: "0",
-// cold: "0",
-// drowning: "0",
-// explosion: "0",
-// fall: "0",
-// fireball: "0",
-// fireballSmall: "0",
-// floorSpikes: "0",
-// heat: "0",
-// hunger: "0",
-// idPlayer: "76561198071866912",
-// kills: "35",
-// landmine: "0",
-// lockCode: "0",
-// playerName: "Walter Melon",
-// players: "9",
-// poison: "0",
-// radiations: "0",
-// rocketBasic: "0",
-// rocketHv: "0",
-// sleepers: "2",
-// suicides: "0",
-// thirst: "0",
-// wallExternalHighStone: "0",
-// wolf: "0"
+  var env = {};
+
+  if(window){  
+    Object.assign(env, window.__env);
+  };
+
+  console.log(env.apiUrl);
 
   var serverStatsReqObj = {
-    url: 'http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats',
+    url:  env.apiUrl,
     method: 'GET'
   };
 
@@ -125,7 +101,6 @@ angular.module('Home', ['nvd3', 'ngResource'])
     console.log(res);
   });
 
-
   $scope.$watch("searchTerm", function(newValue, oldValue) {
     var playerStatsReqObj = {
       url: '/getPlayerStats',
@@ -143,7 +118,6 @@ angular.module('Home', ['nvd3', 'ngResource'])
       console.log(res);
     });
   });
-
 
   $scope.options = {
     chart: {

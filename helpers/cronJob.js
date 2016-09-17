@@ -1,6 +1,7 @@
 var CronJob = require('cron').CronJob;
 var request = require('request');
 var PlayerModel = require('../models/PlayerModel');
+var apiKey = process.env.API_URL;
 
 var killDeathRatio = function(kills, deaths) {
   if(deaths === 0) {
@@ -11,10 +12,10 @@ var killDeathRatio = function(kills, deaths) {
 };
 
 var getRustStats = new CronJob({
-  cronTime: '40 01 * * *',
+  cronTime: '02 18 * * *',
   onTick: function() {
     console.log('cron.onTick() initiated')
-    request('http://pwnserver.apmnerdery.com:8888/getPlayersGlobalStats', function (error, response, body) {
+    request(apiKey, function (error, response, body) {
       if (!error && response.statusCode == 200) {
 
         var parsedBody = JSON.parse(body);
