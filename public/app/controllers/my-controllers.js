@@ -1,1 +1,1 @@
-angular.module('MyCtrls', ['Home']);
+angular.module('MyCtrls', ['Home'])

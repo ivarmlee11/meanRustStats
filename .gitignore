@@ -1,3 +1,6 @@
+# ES Lint
+.eslintrc.js
+
 # Env variables
 .env
 
