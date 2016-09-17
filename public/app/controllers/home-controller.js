@@ -3,8 +3,6 @@ angular.module('Home', ['nvd3', 'ngResource'])
 .controller('HomeCtrl', ['$scope', '$http', 'FilmsFactory',
  function($scope, $http, FilmsFactory) {
 
-  console.log(FilmsFactory);
-
   var killDeathRatio = function(kills, deaths) {
     if(deaths === 0) {
       return kills;

@@ -19,21 +19,23 @@
 ###### Run 'nf run nodemon' in the root folder to spark up that local server!
 ###### Navigate to http://localhost:3000
 ---------------------------------------------------------
-### Notes to self/things to improve
-###### Controllers were getting executed twice. If you use the ui-router module for Angular the controller is passed into the view when you set up the router. I was accidentally using ng-controller="foo" within the view as well, thus executing the controller again ater the view had been loaded...
+### TODO
+1. Post request throwing an error on page load. I made an automatic post that sends player data to the backend on page load. Getting a 503 error after 30 seconds. Page reload will show most up-to-date info.
+2. The stats reset along with the Rust video game server being reset. Haven't come up with a way to keep the stats past a game server reload.
+3. When this redirect is enabled the response body I get from the GET request for player stats is a big block of HTML from the index.html page. I removed it and things are working smoothly.
 
-###### http://stackoverflow.com/questions/15535336/combating-angularjs-executing-controller-twice
-
-
-###### When this redirect is enabled the response object I get from the 
-GET request for player stats is HTML
 ```
 app.get('/*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 ```
 
-###### AngularJS factories vs services
+### Notes
+###### Controllers were getting executed twice. If you use the ui-router module for Angular the controller is passed into the view when you set up the router. I was accidentally using ng-controller="foo" within the view as well, thus executing the controller again ater the view had been loaded...
+
+###### http://stackoverflow.com/questions/15535336/combating-angularjs-executing-controller-twice
+
+###### AngularJS Factories vs Services
 
 ###### http://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
 
