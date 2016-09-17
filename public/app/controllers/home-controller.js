@@ -1,4 +1,4 @@
-angular.module('Home', ['nvd3', 'ngResource'])
+  angular.module('Home', ['nvd3', 'ngResource'])
 
 .controller('HomeCtrl', ['$scope', '$http', 'FilmsFactory',
  function ($scope, $http, FilmsFactory) {
@@ -25,7 +25,7 @@ angular.module('Home', ['nvd3', 'ngResource'])
 
    if (window) {
      Object.assign(env, window.__env)
-   };
+   }
 
    console.log(env.apiUrl)
 
@@ -36,6 +36,7 @@ angular.module('Home', ['nvd3', 'ngResource'])
 
    $http(serverStatsReqObj).then(function success (res) {
      for (var i = 0; i < res.data.players.length; i++) {
+
        var deathCount = (parseInt(res.data.players[i].bear) +
                         parseInt(res.data.players[i].bearTrap) +
                         parseInt(res.data.players[i].bleedings) +
@@ -58,6 +59,9 @@ angular.module('Home', ['nvd3', 'ngResource'])
                         parseInt(res.data.players[i].thirst) +
                         // parseInt(res.data.players[i].sleepers) +
                         parseInt(res.data.players[i].wolf))
+        $scope.trackedPlayers = res.data.players.length
+        $scope.totalKills += parseInt(res.data.players[i].kills)
+        $scope.totalDeaths += deathCount
 
        var kd = killDeathRatio(res.data.players[i].kills, deathCount)
       // var totalKills = parseInt(res.data.players[i].sleepers) + parseInt(res.data.players[i].kills);
@@ -82,16 +86,17 @@ angular.module('Home', ['nvd3', 'ngResource'])
 
    $http(d3PlayerStatsReqObj).then(function success (res) {
      d3UpdateArray = res.data
-     console.log(d3UpdateArray)
-     $scope.trackedPlayers += d3UpdateArray.length
+     // console.log(d3UpdateArray)
 
      for (var i = 0; i < 11; i++) {
        $scope.data.push({key: d3UpdateArray[i].name,
                         y: d3UpdateArray[i].kills})
      };
+
+     $scope.trackedPlayers = d3UpdateArray.length
      for (var j = 0; j < d3UpdateArray.length; j++) {
-       $scope.totalKills += d3UpdateArray[j].kills
-       $scope.totalDeaths += d3UpdateArray[j].deaths
+       $scope.totalKills = d3UpdateArray[j].kills
+       $scope.totalDeaths = d3UpdateArray[j].deaths
      };
    }, function error (res) {
      console.log(res)

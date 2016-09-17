@@ -22,6 +22,10 @@ app.get('/getPlayerStats', function (req, res) {
   })
 })
 
+app.post('/postStatsOnPageOpen', function (req, res) {
+  updatePlayerStats(req)
+})
+
 app.get('/updateD3', function (req, res) {
   PlayerModel.find({}).sort({kills: -1}).exec(function (err, players) {
     if (err) throw err
@@ -33,10 +37,6 @@ app.get('/updateD3', function (req, res) {
 
     res.send(playerStats)
   })
-})
-
-app.post('/postStatsOnPageOpen', function (req, res) {
-  updatePlayerStats(req)
 })
 
 app.listen(PORT, function () {
