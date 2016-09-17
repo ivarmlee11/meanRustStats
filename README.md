@@ -1,4 +1,5 @@
 # Rust Server Stats Tracker
+## http://rustorbust.herokuapp.com
 
 ###### This is a MEAN app that tracks player stats for a computer game called Rust.
 ###### Tech used: AngularJS 1.X, Mongoose, MongoDB, NVD3(Plug and play D3 Chart Library), Node.js, Express.js
