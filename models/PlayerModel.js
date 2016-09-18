@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
 
 var playerSchema = new mongoose.Schema({
-  name: { type: String, unique: true },
+  name: String,
   kills: Number,
   deaths: Number,
   kd: String,
-  sleepKills: Number,
-  totalKills: Number
+  sleepKills: Number
 },
   {
     timestamps: true

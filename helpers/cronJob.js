@@ -12,14 +12,14 @@ var killDeathRatio = function (kills, deaths) {
 }
 
 var getRustStats = new CronJob({
-  cronTime: '16 19 * * *',
+  cronTime: '27 13 * * *',
   onTick: function () {
     console.log('cron.onTick() initiated')
     request(apiKey, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         var parsedBody = JSON.parse(body)
         var playerArray = []
-        console.log('we\'re in the Cron updatePlayerFunction')
+        console.log('we\'re in the Cron Update')
         for (var i = 0; i < parsedBody.players.length; i++) {
           var deathCount = (parseInt(parsedBody.players[i].bear) +
                             parseInt(parsedBody.players[i].bearTrap) +

@@ -23,6 +23,7 @@ app.get('/getPlayerStats', function (req, res) {
 })
 
 app.post('/postStatsOnPageOpen', function (req, res) {
+  console.log('post stats on page open reached');
   updatePlayerStats(req)
 })
 
