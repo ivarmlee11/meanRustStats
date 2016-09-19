@@ -1,4 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 // Base line url pattern = /api
-module.exports = router;
+module.exports = router

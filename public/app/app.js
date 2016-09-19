@@ -1,6 +1,6 @@
 angular.module('myApp', ['MyCtrls', 'MyFactories', 'MyServices', 'ui.router'])
 .config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
-  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
   .state('home', {
