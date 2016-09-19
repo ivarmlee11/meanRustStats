@@ -73,14 +73,13 @@ angular.module('Home', ['nvd3', 'ngResource'])
         sleepKills: res.data.players[i].sleepers
         // totalKills: totalKills
       })
-      console.log(playerArray[i].name)
     };
 
     $http.post('/postStatsOnPageOpen', playerArray)
 
     $http(d3PlayerStatsReqObj).then(function success (res) {
       d3UpdateArray = res.data
-      console.log('update ran')
+
       $scope.data = []
       for (var i = 0; i < 11; i++) {
         $scope.data.push({key: d3UpdateArray[i].name,
@@ -90,11 +89,10 @@ angular.module('Home', ['nvd3', 'ngResource'])
       $scope.trackedPlayers = d3UpdateArray.length
       $scope.totalKills = 0
       $scope.totalDeaths = 0
-      console.log('------------------')
+
       for (var j = 0; j < d3UpdateArray.length; j++) {
         $scope.totalKills += d3UpdateArray[j].kills
         $scope.totalDeaths += d3UpdateArray[j].deaths
-        console.log(d3UpdateArray[j].name)
       };
 
     }, function error (res) {
