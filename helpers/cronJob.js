@@ -21,28 +21,28 @@ var getRustStats = new CronJob({
         var playerArray = []
         console.log('we\'re in the Cron Update')
         for (var i = 0; i < parsedBody.players.length; i++) {
-          var deathCount = (parseInt(parsedBody.players[i].bear) +
-                            parseInt(parsedBody.players[i].bearTrap) +
-                            parseInt(parsedBody.players[i].bleedings) +
-                            parseInt(parsedBody.players[i].cold) +
-                            parseInt(parsedBody.players[i].drowning) +
-                            parseInt(parsedBody.players[i].explosion) +
-                            parseInt(parsedBody.players[i].fall) +
-                            parseInt(parsedBody.players[i].fireball) +
-                            parseInt(parsedBody.players[i].fireballSmall) +
-                            parseInt(parsedBody.players[i].floorSpikes) +
-                            parseInt(parsedBody.players[i].heat) +
-                            parseInt(parsedBody.players[i].hunger) +
-                            parseInt(parsedBody.players[i].landmine) +
-                            parseInt(parsedBody.players[i].poison) +
-                            parseInt(parsedBody.players[i].radiations) +
-                            parseInt(parsedBody.players[i].rocketBasic) +
-                            parseInt(parsedBody.players[i].rocketHv) +
-                            parseInt(parsedBody.players[i].players) +
-                            parseInt(parsedBody.players[i].suicides) +
-                            parseInt(parsedBody.players[i].thirst) +
-                            // parseInt(parsedBody.players[i].sleepers) +
-                            parseInt(parsedBody.players[i].wolf))
+          var deathCount = (parseInt(res.data.players[i].bear) +
+                            parseInt(res.data.players[i].bearTrap) +
+                            parseInt(res.data.players[i].bleedings) +
+                            parseInt(res.data.players[i].cold) +
+                            parseInt(res.data.players[i].drowning) +
+                            parseInt(res.data.players[i].explosion) +
+                            parseInt(res.data.players[i].fall) +
+                            parseInt(res.data.players[i].fireball) +
+                            parseInt(res.data.players[i].fireballSmall) +
+                            parseInt(res.data.players[i].floorSpikes) +
+                            parseInt(res.data.players[i].heat) +
+                            parseInt(res.data.players[i].hunger) +
+                            parseInt(res.data.players[i].landmine) +
+                            parseInt(res.data.players[i].poison) +
+                            parseInt(res.data.players[i].radiations) +
+                            parseInt(res.data.players[i].rocketBasic) +
+                            parseInt(res.data.players[i].rocketHv) +
+                            parseInt(res.data.players[i].players) +
+                            parseInt(res.data.players[i].suicides) +
+                            parseInt(res.data.players[i].thirst) +
+                            // parseInt(res.data.players[i].sleepers) +
+                            parseInt(res.data.players[i].wolf))
           var kd = killDeathRatio(parsedBody.players[i].kills, deathCount)
           // var totalKills = parseInt(parsedBody.players[i].sleepers) + parseInt(parsedBody.players[i].kills);
           playerArray.push({

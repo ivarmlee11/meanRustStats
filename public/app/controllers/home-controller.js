@@ -25,16 +25,19 @@ angular.module('Home', ['nvd3', 'ngResource'])
     Object.assign(env, window.__env)
   }
 
-  console.log(env.apiUrl)
+  console.log(env.apiUrl + ' JSON stats page')
 
   var serverStatsReqObj = {
     url: env.apiUrl,
     method: 'GET'
   }
 
+  var d3PlayerStatsReqObj = {
+    url: '/updateD3',
+    method: 'GET'
+  }
+
   $http(serverStatsReqObj).then(function success (res) {
-    var killChecker = 0
-    var deathChecker = 0
     for (var i = 0; i < res.data.players.length; i++) {
 
       var deathCount = (parseInt(res.data.players[i].bear) +
@@ -59,10 +62,6 @@ angular.module('Home', ['nvd3', 'ngResource'])
                       parseInt(res.data.players[i].thirst) +
                       // parseInt(res.data.players[i].sleepers) +
                       parseInt(res.data.players[i].wolf))
-    
-      killChecker += parseInt(res.data.players[i].kills)
-     
-      deathChecker += deathCount
 
       var kd = killDeathRatio(res.data.players[i].kills, deathCount)
       // var totalKills = parseInt(res.data.players[i].sleepers) + parseInt(res.data.players[i].kills);
@@ -75,24 +74,55 @@ angular.module('Home', ['nvd3', 'ngResource'])
         // totalKills: totalKills
       })
     };
-    console.log(killChecker)
-    console.log(deathChecker)
-    console.log(playerArray.length)
-    console.log(playerArray)
+
     $http.post('/postStatsOnPageOpen', playerArray)
+
+    $http(d3PlayerStatsReqObj).then(function success (res) {
+      d3UpdateArray = res.data
+      console.log('update ran')
+      $scope.data = []
+      for (var i = 0; i < 11; i++) {
+        $scope.data.push({key: d3UpdateArray[i].name,
+                        y: d3UpdateArray[i].kills})
+      };
+
+      $scope.trackedPlayers = d3UpdateArray.length
+      $scope.totalKills = 0
+      $scope.totalDeaths = 0
+
+      for (var j = 0; j < d3UpdateArray.length; j++) {
+        $scope.totalKills += d3UpdateArray[j].kills
+        $scope.totalDeaths += d3UpdateArray[j].deaths
+      };
+
+    }, function error (res) {
+      console.log(res)
+    })
+
   }, function error (res) {
     console.log(res)
   })
 
-  var d3PlayerStatsReqObj = {
-    url: '/updateD3',
-    method: 'GET'
-  }
+  $scope.$watch('searchTerm', function (newValue, oldValue) {
+    var playerStatsReqObj = {
+      url: '/getPlayerStats',
+      method: 'GET',
+      params: {name: $scope.searchTerm}
+    }
+
+    $http(playerStatsReqObj).then(function success (res) {
+      if (res.data[0]) {
+        $scope.searchTermFound = true
+      };
+
+      $scope.playerStats = res.data[0]
+    }, function error (res) {
+      console.log(res)
+    })
+  })
 
   $http(d3PlayerStatsReqObj).then(function success (res) {
     d3UpdateArray = res.data
-    console.log('d3')
-    console.log(d3UpdateArray)
 
     for (var i = 0; i < 11; i++) {
       $scope.data.push({key: d3UpdateArray[i].name,
@@ -110,24 +140,6 @@ angular.module('Home', ['nvd3', 'ngResource'])
 
   }, function error (res) {
     console.log(res)
-  })
-  
-  $scope.$watch('searchTerm', function (newValue, oldValue) {
-    var playerStatsReqObj = {
-      url: '/getPlayerStats',
-      method: 'GET',
-      params: {name: $scope.searchTerm}
-    }
-
-    $http(playerStatsReqObj).then(function success (res) {
-      if (res.data[0]) {
-        $scope.searchTermFound = true
-      };
-
-      $scope.playerStats = res.data[0]
-    }, function error (res) {
-      console.log(res)
-    })
   })
 
   $scope.options = {

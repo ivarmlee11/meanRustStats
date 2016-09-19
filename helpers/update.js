@@ -1,6 +1,7 @@
 var PlayerModel = require('../models/PlayerModel')
-var kills = 0;
-var deaths = 0;
+var kills = 0
+var deaths = 0
+var counter = 0
 exports.updatePlayerStats = function (array) {
   array.body.forEach(function (item) {
     kills += parseInt(item.kills)
@@ -15,9 +16,14 @@ exports.updatePlayerStats = function (array) {
     var options = { upsert: true, new: true, setDefaultsOnInsert: true }
 
     PlayerModel.findOneAndUpdate(query, update, options, function (error, result) {
+      if(error){
+        console.log('Something went wrong saving the player')
+      }
       if (error) return
     })
+    counter += 1
   })
-  console.log(kills + 'kills')
-  console.log(deaths + 'deaths')
+  console.log(kills + ' kills')
+  console.log(counter + ' players saved')
+  console.log(deaths + ' deaths')
 }

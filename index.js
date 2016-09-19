@@ -35,7 +35,7 @@ app.get('/updateD3', function (req, res) {
     players.forEach(function (player) {
       playerStats.push(player)
     })
-
+    
     res.send(playerStats)
   })
 })
