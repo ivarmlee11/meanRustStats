@@ -4,10 +4,8 @@
   "description": "MEAN-App For Rust Server Stat Tracking",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "scripts": {
-    "lint": "./node_modules/eslint/bin/eslint.js ./ ./**/*.js --fix; exit 0"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/eslint/bin/eslint.js ./ ./**/**.js --fix; exit 0"
   },
   "repository": {
     "type": "git",
