@@ -25,7 +25,7 @@ angular.module('Home', ['nvd3', 'ngResource'])
     Object.assign(env, window.__env)
   }
 
-  console.log(env.apiUrl + ' JSON stats page')
+  console.log(env.apiUrl + ' Rust Server JSON stats page')
 
   var serverStatsReqObj = {
     url: env.apiUrl,
@@ -73,6 +73,7 @@ angular.module('Home', ['nvd3', 'ngResource'])
         sleepKills: res.data.players[i].sleepers
         // totalKills: totalKills
       })
+      console.log(playerArray[i].name)
     };
 
     $http.post('/postStatsOnPageOpen', playerArray)
@@ -89,10 +90,11 @@ angular.module('Home', ['nvd3', 'ngResource'])
       $scope.trackedPlayers = d3UpdateArray.length
       $scope.totalKills = 0
       $scope.totalDeaths = 0
-
+      console.log('------------------')
       for (var j = 0; j < d3UpdateArray.length; j++) {
         $scope.totalKills += d3UpdateArray[j].kills
         $scope.totalDeaths += d3UpdateArray[j].deaths
+        console.log(d3UpdateArray[j].name)
       };
 
     }, function error (res) {
