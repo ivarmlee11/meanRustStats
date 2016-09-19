@@ -90,12 +90,13 @@ angular.module('Home', ['nvd3', 'ngResource'])
       $scope.trackedPlayers = d3UpdateArray.length
       $scope.totalKills = 0
       $scope.totalDeaths = 0
-      console.log('------------------')
+  
       for (var j = 0; j < d3UpdateArray.length; j++) {
         $scope.totalKills += d3UpdateArray[j].kills
         $scope.totalDeaths += d3UpdateArray[j].deaths
       };
       console.log('d3UpdateArray' + d3UpdateArray.length)
+      console.log(JSON.stringify(d3UpdateArray))
 
     }, function error (res) {
       console.log(res)

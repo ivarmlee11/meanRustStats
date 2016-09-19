@@ -14,6 +14,7 @@ exports.updatePlayerStats = function (array) {
                     // totalKills: item.totalKills
                   }
     var options = { upsert: true, new: true, setDefaultsOnInsert: true }
+    counter += 1
 
     PlayerModel.findOneAndUpdate(query, update, options, function (error, result) {
       if(error){
@@ -21,7 +22,6 @@ exports.updatePlayerStats = function (array) {
       }
       if (error) return
     })
-    counter += 1
   })
   console.log(kills + ' kills')
   console.log(counter + ' players saved')
