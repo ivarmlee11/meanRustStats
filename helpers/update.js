@@ -26,4 +26,7 @@ exports.updatePlayerStats = function (array) {
   console.log(kills + ' kills')
   console.log(counter + ' players saved')
   console.log(deaths + ' deaths')
+  var kills = 0
+  var deaths = 0
+  var counter = 0
 }
